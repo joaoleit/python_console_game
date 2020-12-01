@@ -7,7 +7,7 @@ if __name__ == '__main__':
     control = None
     while control != "EXIT":
         control = input("Digite a direção: ").upper()
-
-       if control != "EXIT":
+        
+        if control != "EXIT":
             ash.move(control)
 
