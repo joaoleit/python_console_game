@@ -32,10 +32,9 @@ class Map:
             self.map[posicao_atual[0]][posicao_atual[1]] = 0
             self.map[pos_x][pos_y] = self.value
             return True
-
         return False
 
-    def draw(self, moved: bool = 1) -> None:
+    def draw(self) -> None:
         print('-' * (self.size * 2 - 1))
 
         for i in range(self.size):
@@ -47,8 +46,3 @@ class Map:
                 else:
                     print('. ', end='')
             print()
-
-        if not moved:
-            print("Não pode ir na direção")
-
-        sleep(1.5)

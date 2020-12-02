@@ -1,3 +1,4 @@
+from time import sleep
 from board import Map
 
 
@@ -17,26 +18,29 @@ class Player(Map):
             self.__movement(direction)
 
     def __movement(self, direction: str) -> None:
-        direct = False
+        moved = False
+        moving_directions = {"W": (self.__x - 1, self.__y), "S": (self.__x + 1, self.__y),
+                             "A": (self.__x, self.__y - 1), "D": (self.__x, self.__y + 1)}
 
-        if direction == 'W':
-            if direct := self.map_update((self.__x - 1, self.__y), self.position) == 1:
-                self.__x -= 1
+        if direction in moving_directions:
+            moved = self.map_update(moving_directions[direction], self.position)
+            if moved:
+                self.__x = moving_directions[direction][0]
+                self.__y = moving_directions[direction][1]
 
-        if direction == 'S':
-            if direct := self.map_update((self.__x + 1, self.__y), self.position) == 1:
-                self.__x += 1
+        self.draw()
+        self.__moved_to(direction, moved)
 
-        if direction == 'A':
-            if direct := self.map_update((self.__x, self.__y - 1), self.position) == 1:
-                self.__y -= 1
+    def __moved_to(self, direction: str, moved: bool):
+        directions_dict = {"W": "Up", "S": "Down", "A": "Left", "D": "Right"}
+        moved_dict = {False: "couldn't move", True: "moved"}
 
-        if direction == 'D':
-            if direct := self.map_update((self.__x, self.__y + 1), self.position) == 1:
-                self.__y += 1
+        if direction in directions_dict:
+            print(f"The Player {moved_dict[moved]} {directions_dict[direction]}")
+        else:
+            print(f"{direction} is not an movement")
 
-        self.draw(direct)
-
-    def print_map(self) -> None:
-        for i in self.map:
-            print(i)
+        for i in range(self.size * 2 - 1):
+            print(".", end="")
+            sleep(0.15)
+        print()
