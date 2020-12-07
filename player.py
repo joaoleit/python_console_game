@@ -32,7 +32,6 @@ class Player(Board):
 
         self.draw()
         self.__moved_to(direction, moved)
-        print(self.position)
 
     def __moved_to(self, direction: str, moved: bool) -> None:
         directions_dict = {"W": "Up", "S": "Down", "A": "Left", "D": "Right"}
